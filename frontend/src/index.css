@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.post {
+    width: 100px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
