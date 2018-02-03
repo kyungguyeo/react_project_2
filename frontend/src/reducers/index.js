@@ -22,18 +22,13 @@ function posts (state = {}, action) {
             return action.posts
         case ADD_POST:
             const new_post = {
-                id: {
-                    'id': id,
-                    'timestamp': timestamp,
-                    'title': title,
-                    'body': body,
-                    'author': author,
-                    'category': category,
-                    'voteScore': 0,
-                    'deleted': false,
-                    commentCount: 0
+                'id': id,
+                'timestamp': timestamp,
+                'title': title,
+                'body': body,
+                'author': author,
+                'category': category
                 }
-            }
             return {
                 ...state,
                 ...new_post

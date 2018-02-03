@@ -5,7 +5,7 @@ export default function Comment ({ comment }) {
   return (
     <div className="comment">
       <span>
-        <p>{comment.text}</p>
+        <p>{comment.body}</p>
         <p>VOTE</p>
       </span>
     </div>

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Link, Route } from 'react-router-dom'
-import Post from './Post'
+import { Link } from 'react-router-dom'
 
 export default function EditPost ({ fresh, post, categories, PostMethod }) {
     

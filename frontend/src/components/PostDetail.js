@@ -1,6 +1,6 @@
 import React from 'react'
 import Comment from './Comment'
-import { Link, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function PostDetail ({ post, comments }) {
     console.log(post)
@@ -14,11 +14,9 @@ export default function PostDetail ({ post, comments }) {
             <p>Author: {post.author}</p>
             <p>Votes: {post.voteScore}</p>
             <h2>Here are the comments!</h2>
-            {Object.keys(comments).map((c, i) => (
+            {comments.map((comment, i) => (
                 <div key={i}>
-                    <p>{comments[c].body}</p>
-                    <p>Author: {comments[c].author}</p>
-                    <p>Votes: {comments[c].voteScore}</p>
+                    <Comment body={comment.body} author={comment.author} votes={comment.voteScore}/>
                 </div>
             ))}
             <Link to={"/posts/" + post['id'] + "/edit"}>Edit this post</Link>

@@ -1,3 +1,5 @@
+import { cuid } from 'cuid'
+
 export const ADD_POST = 'ADD_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const EDIT_POST = 'EDIT_POST'
@@ -12,15 +14,15 @@ export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 
 export function addPost ({ id, timestamp, title, body, author, category }) {
-    return {
-        type: ADD_POST,
-        id,
-        timestamp,
-        title,
-        body,
-        author,
-        category,
-    }
+  return {
+      type: ADD_POST,
+      id,
+      timestamp,
+      title,
+      body,
+      author,
+      category
+  }
 }
 
 export function removePost ({ id }) {
@@ -106,8 +108,8 @@ export const fetchPosts = () => dispatch => (
         .then(posts => dispatch(receivePosts(posts)))
 );
 
-export const fetchComments = (post_id) => dispatch => (
-    fetch("http://localhost:3001/posts/" + post_id + "/comments/", { headers: { 'Authorization': 'whatever-you-want' }})
+export const fetchComments = () => dispatch => (
+    fetch("http://localhost:3001/posts/" + '8xf0y6ziyjabvozdd253nd' + "/comments/", { headers: { 'Authorization': 'whatever-you-want' }})
         .then(results => { return results.json(); })
             .then(comments => dispatch(receiveComments(comments)))
 );
@@ -116,4 +118,8 @@ export const fetchCategories = () => dispatch => (
     fetch("http://localhost:3001/categories/", { headers: { 'Authorization': 'whatever-you-want' }})
       .then(results => { return results.json(); })
         .then(categories => dispatch(receiveCategories(categories)))
+);
+
+export const createPost = () => dispatch => (
+    dispatch(addPost(cuid(), Date.now(), 'Default Fake Title', 'Default Fake Body', 'Default Fake Author', 'react'))
 );
