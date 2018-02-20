@@ -2,26 +2,24 @@ import React from 'react'
 import Comment from './Comment'
 import { Link } from 'react-router-dom'
 
-export default function PostDetail ({ post, comments }) {
-    console.log(post)
-    console.log(comments)
+export default function PostDetail ({ postid, posts, comments }) {
     return (
-        <div>
+        <div>  
             <h2>Here is the post!</h2>
-            <h3>{post.title}</h3>
-            <p>{post.body}</p>
-            <p>Category: {post.category}</p>
-            <p>Author: {post.author}</p>
-            <p>Votes: {post.voteScore}</p>
+            <h3>{posts[postid].title}</h3>
+            <p>{posts[postid].body}</p>
+            <p>Category: {posts[postid].category}</p>
+            <p>Author: {posts[postid].author}</p>
+            <p>Votes: {posts[postid].voteScore}</p>
             <h2>Here are the comments!</h2>
-            {comments.map((comment, i) => (
+            {comments.filter((comment)=> comment.parentId === posts[postid]['id']).map((comment, i) => (
                 <div key={i}>
-                    <Comment body={comment.body} author={comment.author} votes={comment.voteScore}/>
+                    <Comment comment={comment} />
                 </div>
             ))}
-            <Link to={"/posts/" + post['id'] + "/edit"}>Edit this post</Link>
-            <Link to={"/posts/" + post['id'] + "/delete"}>Delete this post</Link>
+            <Link to={"/posts/" + postid + "/edit"}>Edit this post</Link>
+            <Link to={"/posts/" + postid + "/delete"}>Delete this post</Link>
             <Link to={"/"}>Back to List</Link>
-            </div>
+        </div>
       )
 }

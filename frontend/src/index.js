@@ -25,7 +25,7 @@ const store = createStore(
     composeEnhancers(
         applyMiddleware(logger),
         applyMiddleware(thunk)
-    )
+        )
     )
 
 ReactDOM.render(

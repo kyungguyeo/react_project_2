@@ -4,32 +4,30 @@ import PostList from './PostList'
 import EditPost from './EditPost'
 import PostDetail from './PostDetail'
 import '../index.css'
-import { connect } from 'react-redux'
+import { connect, dispatch } from 'react-redux'
 import { addPost, removePost, editPost, addComment, removeComment, upvotePost, downvotePost, upvoteComment, downvoteComment, fetchPosts, fetchComments, fetchCategories } from '../actions'
 
 
 class App extends Component {
 
-  componentWillMount() {
-    this.setState({categories: this.props.fetchCategories()});
-    this.setState({posts: this.props.fetchPosts()});
-    this.setState({comments: this.props.fetchComments()});
+  componentDidMount() {
+    this.props.fetchPosts()
+    this.props.fetchCategories()
   }
 
   render() {
-    const { posts, comments, addPost } = this.props
+    const { posts, comments, categories } = this.props
     return (
       <div className="App">
         <h1>Hello Posts!</h1>
-        <Route path="/posts" render={() => ( 
-          <PostList posts={posts} comments={comments} />
+        <Route exact path="/" render={() => ( <PostList posts={posts} /> )} />
+        <Route exact path="/new" render={() => ( <EditPost fresh={true} categories={categories} addPost={this.props.addPost}/> )}/>
+        <Route exact path="/posts/:id/" render={(props) => (
+          <PostDetail postid={props.match.params.id} posts={posts} comments={comments} />
         )} />
-        <Route exact path="/new" render={() => (
-          <EditPost fresh={true} categories={this.state.categories} />
-        )}/>
         <Route path="/posts/:id/edit" render={(props) => (
-          <EditPost fresh={false} post={posts[props.match.params.id]} categories={this.state.categories} />
-        )}/>
+          <EditPost postid={props.match.params.id} fresh={false} post={posts[props.match.params.id]} categories={categories} handleSubmit={this.handleSubmit()}/>
+        )} />
       </div>
     );
   }
@@ -40,7 +38,7 @@ function mapStateToProps (data) {
   return {
     posts: data['posts'],
     comments: data['comments'],
-    categories: data['categories']['categories']
+    categories: data['categories']
   }
 }
 
