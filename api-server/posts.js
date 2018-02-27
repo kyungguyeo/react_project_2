@@ -1,6 +1,9 @@
 const clone = require('clone')
 
-let db = {}
+let db = {
+  'whatever-you-want': {
+  }
+}
 
 const defaultData = {
   "8xf0y6ziyjabvozdd253nd": {
@@ -67,6 +70,7 @@ function getAll (token) {
 function add (token, post) {
   return new Promise((res) => {
     let posts = getData(token)
+    console.log(post)
 
     posts[post.id] = {
       id: post.id,

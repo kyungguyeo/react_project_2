@@ -15,8 +15,7 @@ export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
 export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
 
 export function addPost ({ id, timestamp, title, body, author, category, deleted, voteScore, commentCount }) {
-  return {
-      type: ADD_POST,
+  return { type: ADD_POST,
       id,
       timestamp,
       title,
@@ -131,7 +130,8 @@ export const fetchPosts = () => dispatch => {
     .then(posts => dispatch(receivePosts(posts)))
 }
 
-export const postPost = (post) => dispatch => (
+export function postPost(post) {
+    console.log(post)
     fetch("http://localhost:3001/posts", {
         headers: {'Authorization': 'whatever-you-want'},
         method: 'POST',
@@ -142,7 +142,21 @@ export const postPost = (post) => dispatch => (
     .then(function(response) {
         return response.json()
     })
-);
+};
+
+// export const postPost = (post) => dispatch => (
+//     fetch("http://localhost:3001/posts", {
+//         headers: {'Authorization': 'whatever-you-want'},
+//         method: 'POST',
+//         data: {
+//             ...post
+//         }
+//     })
+//     .then(function(response) {
+//         console.log(response)
+//         return response.json()
+//     })
+// );
 
 export const fetchComments = (post) => dispatch => {
     dispatch(requestComments(post));

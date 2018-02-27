@@ -10,11 +10,11 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 const logger = store => next => action => {
-    console.group(action.type)
+    // console.group(action.type)
     console.info('dispatching', action)
     let result = next(action)
     console.log('next state', store.getState())
-    console.groupEnd(action.type)
+    // console.groupEnd(action.type)
     return result
 }
 
@@ -29,11 +29,11 @@ const store = createStore(
     )
 
 ReactDOM.render(
+  <Provider store={store}>
     <BrowserRouter>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </BrowserRouter>,
-    document.getElementById('root')
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
 )
 registerServiceWorker();
