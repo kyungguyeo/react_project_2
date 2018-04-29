@@ -5,12 +5,25 @@ import { connect } from 'react-redux'
 import { addPost, removePost, editPost, postPost } from '../actions'
 
 class EditPost extends Component {
+    postPost(post) {
+        console.log(JSON.stringify(post))
+        fetch("http://localhost:3001/posts", {
+          headers: {
+            'Authorization': 'whatever-you-want',
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify(post)
+        })
+        .then(function(response) {
+          return response.json()
+        })
+    };
 
     handleSubmit(event) {
         event.preventDefault();
         var cuid = require('cuid');
-        this.props.addPost({
-                            id: cuid(),
+        this.props.addPost({ id: cuid(),
                             timestamp: Date.now(),
                             title: this.title.value,
                             body: this.body.value,
@@ -20,7 +33,7 @@ class EditPost extends Component {
                             voteScore: 0,
                             commentCount: 0
                             });
-        this.props.postPost({
+        this.postPost({
                             id: cuid(),
                             timestamp: Date.now(),
                             title: this.title.value,
@@ -102,5 +115,7 @@ function mapDispatchToProps (dispatch) {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  null,
+  { pure: false }
 )(EditPost)
